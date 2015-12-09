@@ -1,0 +1,78 @@
+========================================
+可以做什么
+libgit2非常有用并且已经用于许多应用中包括Github.com网站,plastic SCM(一种版本控制工具)和MS's Visual Studio 中关于git的工具。这个库提供了:
+    1.SHA转换，格式化和缩短
+    2.抽象的ODB后端系统
+    3.提交,标签,树状和点解析,编辑,写回
+    4.遍历代码树
+    5.修正
+    6.索引(包括缓冲区域)文件操作
+    7.引用管理(包括打包的引用)
+    8.配置文件管理
+    9.高水平的仓库管理
+    10.线程安全和可重入
+    11.可以详细描述的和详细的错误信息
+    12.更多(175个不同的接口)
+=========================================
+
+
+
+可选择的依赖
+该库不仅不需要其他依赖就能提供git的特性，它还可以利用一些其他添加到其中的库:
+    1.pthreads 使能线程安全和多线程包生成
+    2.OpenSSL 通过HTTPS会话和提供SHA-1函数
+    3.LibSSH2 使能SSH通信
+    4.iconv 解决HFS+这种奇怪的文件系统路径的编码特质
+
+========================================
+
+
+初始化
+该库需要追踪一些全局的状态。调用
+git_libgit2_init();
+在调用其他libgit2函数之前。你可以调用该函数多次，并且调用相同次数的
+git_libgit2_shutdown();
+来释放资源。注意如果你有工作线程,你应该调用git_libgit2_shutdown在那些线程退出之后。如果你需要协调这些,只需要简单的让工作者调用开始时git_libgit2_init和在关闭时调用git_libgit2_shutdown().
+
+========================================
+
+建立libgit2 使用CMake
+Linux，*BSD，Mac OS X和libgit2要求pthreads能用
+windows中使用原生的windows api进行多线程编程
+
+你可以用以下命令编译该库
+$ mkdir build&&cd build
+$ cmake ..
+$ cmake --build .
+
+你通过设置确定安装该库的前缀:
+$ cmake .. -DCMAKE_INSTALL_PREFIX=/install/prefix
+$ cmake --build . --target install
+
+www.cmake.org/Wiki/CMake_FAQ
+
+接下来的是CMake中声明的变量:
+    BIN_INSTALL_DIR 二进制文件安装路径
+    LIB_INSTALL_DIR 库文件安装路径
+    INCLUDE_INSTALL_DIR 头文件
+    BUILD_SHARED_LIBS 编译libgit2为动态库
+    BUILD_CLAR 编译CLAR测试套
+    THREADSAFE 用多线程支持编译libgit2
+    STDCALL 编译libgit2为stdcall(C++调用方式，被调用者清除栈) cdecl(调用者清除栈)关闭
+
+======================================
+
+编译和链接选项
+
+64bit到32位的跨平台编译
+
+CMAKE_C_CFLAGS 设置自己的编译旗标
+CMAKE_FIND_ROOT_PATH 重载库的查找路径
+ZLIB_LIBRARY OPENSSL_SSL_LIBRARY OpenSSL_CRYPTO_LIBRARY 告诉CMake到哪里去找那些特定库
+
+
+
+
+
+
+
